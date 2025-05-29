@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usuarios>
+  <usuario>
+    <nombre>Administrador</nombre>
+    <usuario>admin</usuario>
+    <password>admin</password>
+    <rol>1</rol>
+  </usuario>
+  <usuario>
+    <nombre>vendedor</nombre>
+    <usuario>vendedor</usuario>
+    <password>vendedor</password>
+    <rol>2</rol>
+  </usuario>
+  <usuario>
+    <nombre>yygfy</nombre>
+    <usuario>gygu</usuario>
+    <password>123</password>
+    <rol>1</rol>
+  </usuario><usuario>
+    <nombre>xxxx</nombre>
+    <usuario>xxx</usuario>
+    <password>123</password>
+    <rol>1</rol>
+  </usuario>
+</usuarios>
+
