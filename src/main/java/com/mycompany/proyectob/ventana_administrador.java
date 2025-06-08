@@ -6,6 +6,7 @@ package com.mycompany.proyectob;
  */
 public class ventana_administrador extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form ventana_administrador
      */

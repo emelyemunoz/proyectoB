@@ -1,3 +1,4 @@
+
 package com.mycompany.proyectob;
 
 import javax.swing.JOptionPane;
@@ -6,11 +7,10 @@ import javax.swing.JOptionPane;
  *
  * @author emely
  */
+
 public class Nuevos_libros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Nuevos_libros
-     */
+
     public Nuevos_libros() {
         initComponents();
     }
@@ -202,18 +202,22 @@ public class Nuevos_libros extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_generoActionPerformed
 
     private void jButton_anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_anadirActionPerformed
-        // Añadir los libros
-        
+ 
+
+        // Crear un nuevo libro
         libros l = new libros();
         l.titulo = jTextField_titulo.getText();
         l.autor = jTextField_autor.getText();
         l.precio = Double.parseDouble(jTextField_precio.getText());
         l.cantidad = Integer.parseInt(jTextField_cantidad.getText());
         l.genero = jTextField_genero.getText();
-        
-        JOptionPane.showMessageDialog(this, "Libro creado exitosamente");
 
         ProyectoB.libros.add(l);
+
+
+        // Solo muestra un mensaje de confirmación
+        JOptionPane.showMessageDialog(this, "Libro agregado exitosamente");
+    
 
 
     }//GEN-LAST:event_jButton_anadirActionPerformed

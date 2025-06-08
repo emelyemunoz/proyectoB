@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.proyectob;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.List;
 
 /**
  *
@@ -15,29 +13,33 @@ import javax.swing.table.TableModel;
  */
 public class Ventas extends javax.swing.JFrame {
 
+    public static List<libros> librosVenta = new ArrayList<>();
+
     public Ventas() {
         initComponents();
-        //eliminara los items que tenga el jcombox
-        jComboBox_libros.removeAllItems();
-        //agregar los usuarios que yo quiero
-        jComboBox_libros.addItem("El principito");
-        jComboBox_libros.addItem("El buque");
-
+        actualizarComboBox();
     }
-    //metodo para pintar la tabla y las columnas y filas que lleva
+    // Método para actualizar el JComboBox
 
+    public void actualizarComboBox() {
+        jComboBox_libros.removeAllItems(); // Limpiar el JComboBox
+
+        // Agregar los libros del ArrayList al JComboBox
+        for (libros libro : ProyectoB.libros) {
+            jComboBox_libros.addItem(libro.titulo); // Agregar el título del libro
+        }
+    }
+
+    //metodo para pintar la tabla y las columnas y filas que lleva
     private void pintarTabla() {
-        DefaultTableModel t = new DefaultTableModel(new String[]{"Titulo", "Cantidad", "Precio"}, ProyectoB.libros2.size());
+        DefaultTableModel t = new DefaultTableModel(new String[]{"Titulo", "Cantidad", "Precio"}, librosVenta.size());
         jTable1.setModel(t);
 
-        TableModel tabla = jTable1.getModel();
-
-        for (int i = 0; i < ProyectoB.libros2.size(); i++) {
-            libros2 l = ProyectoB.libros2.get(i);
-            tabla.setValueAt(l.titulo_venta, i, 0);
-            tabla.setValueAt(l.cantidad_venta, i, 1);
-            tabla.setValueAt(l.precio_venta, i, 2);
-
+        for (int i = 0; i < librosVenta.size(); i++) {
+            libros l = librosVenta.get(i);
+            t.setValueAt(l.titulo, i, 0);
+            t.setValueAt(l.cantidad, i, 1);
+            t.setValueAt(l.precio, i, 2);
         }
     }
 
@@ -79,6 +81,7 @@ public class Ventas extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTextField_fecha = new javax.swing.JTextField();
         jButton_fecha = new javax.swing.JButton();
+        salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,6 +184,13 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
 
+        salir.setText("jButton1");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,7 +250,7 @@ public class Ventas extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jButton_fecha)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel11)
                                     .addGroup(layout.createSequentialGroup()
@@ -256,14 +266,18 @@ public class Ventas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField_direccion)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton_registrar)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(salir)
+                                    .addComponent(jButton_registrar))
                                 .addGap(12, 12, 12))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(salir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -302,7 +316,7 @@ public class Ventas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -321,34 +335,47 @@ public class Ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_registrarActionPerformed
 
     private void jButton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_agregarActionPerformed
-        libros2 l = new libros2();
+        String tituloSeleccionado = jComboBox_libros.getSelectedItem().toString();
 
-        l.titulo_venta = jComboBox_libros.getSelectedItem().toString();
-        l.cantidad_venta = Integer.parseInt(jTextField_cantidad.getText());
-
-        double precio = 0.0;
-
-        String tituloSeleccionado = l.titulo_venta;
-
-        switch (tituloSeleccionado) {
-            case "El principito":
-                precio = 10.00;
-                break;
-            case "El buque":
-                precio = 5.00;
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Error: libro no encontrado");
-                return; // Salir si hay un error
+        // Buscar el libro en el ArrayList
+        libros libroSeleccionado = null;
+        for (libros libro : ProyectoB.libros) {
+            if (libro.titulo.equals(tituloSeleccionado)) {
+                libroSeleccionado = libro;
+                break; // Salir del bucle una vez encontrado
+            }
         }
 
-        double subtotal = precio * l.cantidad_venta;
+        // Verificar si se encontró el libro
+        if (libroSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Error: libro no encontrado");
+            return; // Salir si hay un error
+        }
 
-        l.precio_venta = subtotal;
-        jTextField_precio.setText(String.valueOf(precio));
+        // Usar el libro encontrado
+        int cantidadSolicitada = Integer.parseInt(jTextField_cantidad.getText());
 
-        ProyectoB.libros2.add(l);
+        // Verificar si hay suficiente inventario
+        if (libroSeleccionado.cantidad < cantidadSolicitada) {
+            JOptionPane.showMessageDialog(this, "No hay suficiente inventario para agregar.");
+            return; // Salir si no hay suficiente inventario
+        }
+
+        // Crear el libro para la venta
+        libros l = new libros();
+        l.titulo = libroSeleccionado.titulo;
+        l.cantidad = cantidadSolicitada;
+        l.precio = libroSeleccionado.precio; // Usar el precio del libro existente
+
+        // Agregar el libro a la lista de ventas
+        librosVenta.add(l); // Agregar a la lista de ventas
+
+        // Restar del inventario
+        libroSeleccionado.cantidad -= cantidadSolicitada; // Restar la cantidad del inventario
+
+        // Limpiar la tabla antes de pintar
         pintarTabla();
+
     }//GEN-LAST:event_jButton_agregarActionPerformed
 
     private void jButton_calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calcularActionPerformed
@@ -356,8 +383,8 @@ public class Ventas extends javax.swing.JFrame {
         double total = 0.0; // Inicializar el total
 
         // Recorrer la lista de libros2
-        for (libros2 libro : ProyectoB.libros2) {
-            total += libro.precio_venta; // Sumar al total
+        for (libros libro : ProyectoB.libros) {
+            total += libro.precio; // Sumar al total
 
         }
 
@@ -378,9 +405,18 @@ public class Ventas extends javax.swing.JFrame {
         c.fecha = jTextField_fecha.getText();
         c.cliente_sIva = Double.parseDouble(jTextField_sIVA.getText());
 
-        JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
+        // Agregar los libros vendidos a la lista libros2
+        for (libros libro : librosVenta) {
+            libros2 libroVenta = new libros2();
+            libroVenta.titulo_venta = libro.titulo;
+            libroVenta.cantidad_venta = libro.cantidad;
+            libroVenta.precio_venta = libro.precio;
+            ProyectoB.libros2.add(libroVenta); // Añadir a la lista de libros vendidos
+        }
 
+        JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
         ProyectoB.ventas.add(c);
+
 
     }//GEN-LAST:event_jButton_registrarventaActionPerformed
 
@@ -400,6 +436,11 @@ public class Ventas extends javax.swing.JFrame {
 
         jTextField_fecha.setText(String.valueOf(+año + "-" + mes + "-" + dia));
     }//GEN-LAST:event_jButton_fechaActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_salirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -432,5 +473,6 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_sIVA;
     private javax.swing.JTextField jTextField_total;
     private javax.swing.JTextField jTextField_vendedor;
+    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }
