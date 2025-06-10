@@ -20,6 +20,7 @@ com/mycompany/proyectob/nuevo_usuario$1.class
 com/mycompany/proyectob/Inventario$3.class
 com/mycompany/proyectob/nuevo_usuario$3.class
 com/mycompany/proyectob/cupones.class
+com/mycompany/proyectob/Ventas$8.class
 com/mycompany/proyectob/libros2.class
 com/mycompany/proyectob/Telefono.class
 com/mycompany/proyectob/librosvendidos.class
@@ -46,6 +47,7 @@ com/mycompany/proyectob/inventario_cupones$5.class
 com/mycompany/proyectob/ventana_vendedor$1.class
 com/mycompany/proyectob/ventana_administrador.class
 com/mycompany/proyectob/login.class
+com/mycompany/proyectob/Ventas$9.class
 com/mycompany/proyectob/ProyectoB.class
 com/mycompany/proyectob/inventario_cupones$1.class
 com/mycompany/proyectob/ventana_vendedor.class

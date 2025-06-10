@@ -10,7 +10,7 @@ public class ProyectoB {
 
     public static ArrayList<usuario> usuarios = new ArrayList<>(); // Creación de la lista de usuarios
     public static ArrayList<libros> libros = new ArrayList<>(); // Creación de la lista de libros
-    public static ArrayList<cupones> cupones = new ArrayList<>(); //creación de la lista de cupones
+    public static ArrayList<cupones> Cupones = new ArrayList<>(); //creación de la lista de cupones
     public static ArrayList<Clientes> clientes = new ArrayList<>();
     public static ArrayList<libros2> libros2 = new ArrayList<>();
     public static ArrayList<ventas> ventas = new ArrayList<>();

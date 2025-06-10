@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.proyectob;
 
 import java.io.BufferedReader;
@@ -33,17 +29,16 @@ public class inventario_cupones extends javax.swing.JFrame {
     }
 
     private void pintarTabla() {
-        DefaultTableModel t = new DefaultTableModel(new String[]{"codigo", "porcentaje", "monto", "fecha"}, ProyectoB.cupones.size());
+        DefaultTableModel t = new DefaultTableModel(new String[]{"codigo", "porcentaje", "fecha"}, ProyectoB.Cupones.size());
         jTable_cupones.setModel(t);
 
         TableModel tabla = jTable_cupones.getModel();
 
-        for (int i = 0; i < ProyectoB.cupones.size(); i++) {
-            cupones c = ProyectoB.cupones.get(i);
+        for (int i = 0; i < ProyectoB.Cupones.size(); i++) {
+            cupones c = ProyectoB.Cupones.get(i);
             tabla.setValueAt(c.codigo, i, 0);
-            tabla.setValueAt(c.porcentaje, i, 1);
-            tabla.setValueAt(c.monto, i, 2);
-            tabla.setValueAt(c.fecha, i, 3);
+            tabla.setValueAt(c.valor_total, i, 1);
+            tabla.setValueAt(c.fecha, i, 2);
 
         }
     }
@@ -65,11 +60,9 @@ public class inventario_cupones extends javax.swing.JFrame {
         jTable_cupones = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField_codigo = new javax.swing.JTextField();
-        jTextField_porcentaje = new javax.swing.JTextField();
-        jTextField_monto = new javax.swing.JTextField();
+        jTextField_valor_total = new javax.swing.JTextField();
         jTextField_fecha = new javax.swing.JTextField();
         jButton_editar = new javax.swing.JButton();
         jButton_borrar = new javax.swing.JButton();
@@ -135,10 +128,7 @@ public class inventario_cupones extends javax.swing.JFrame {
         jLabel2.setText("Codigo:");
 
         jLabel3.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
-        jLabel3.setText("Porcentaje:");
-
-        jLabel4.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
-        jLabel4.setText("Monto:");
+        jLabel3.setText("Valor:");
 
         jLabel5.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
         jLabel5.setText("Fecha:");
@@ -187,19 +177,20 @@ public class inventario_cupones extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(33, 33, 33)
-                                .addComponent(jTextField_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField_valor_total, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_porcentaje)
-                                    .addComponent(jTextField_monto)
-                                    .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jTextField_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,15 +214,10 @@ public class inventario_cupones extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField_monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField_valor_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addGap(30, 30, 30))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -241,7 +227,9 @@ public class inventario_cupones extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jButton_borrar)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_borrar)
+                            .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_guardar)))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -268,14 +256,14 @@ public class inventario_cupones extends javax.swing.JFrame {
     private void jButton_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_editarActionPerformed
         int modificar = jTable_cupones.getSelectedRow();
         if (modificar > -1) {
-            cupones = ProyectoB.cupones.get(modificar);
+            cupones = ProyectoB.Cupones.get(modificar); // Asegúrate de acceder a la lista actualizada
             jTextField_codigo.setText(cupones.codigo);
-            jTextField_porcentaje.setText(String.valueOf(cupones.porcentaje));
-            jTextField_monto.setText(String.valueOf(cupones.monto));
-            jTextField_fecha.setText(String.valueOf(cupones.fecha));
+            jTextField_valor_total.setText(cupones.valor_total);
+            jTextField_fecha.setText(new SimpleDateFormat("dd/MM/yyyy").format(cupones.fecha));
         } else {
-            JOptionPane.showMessageDialog(this, "selccione un elemento a modificar");
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento a modificar.");
         }
+
     }//GEN-LAST:event_jButton_editarActionPerformed
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
@@ -285,7 +273,7 @@ public class inventario_cupones extends javax.swing.JFrame {
         int borrar = jTable_cupones.getSelectedRow();
 
         if (JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar el cupón") == 0) {
-            ProyectoB.cupones.remove(borrar);
+            ProyectoB.Cupones.remove(borrar);
             pintarTabla();
             JOptionPane.showMessageDialog(this, "cupón eliminado");
 
@@ -297,19 +285,12 @@ public class inventario_cupones extends javax.swing.JFrame {
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
         if (cupones != null) {
             String codigo = jTextField_codigo.getText();
-            String porcentajeTexto = jTextField_porcentaje.getText();
-            String montoTexto = jTextField_monto.getText();
+            String valorTexto = jTextField_valor_total.getText();
             String fechaTexto = jTextField_fecha.getText();
 
             // Actualiza los atributos directamente
             cupones.codigo = codigo;
-
-            // Conversión de texto a double para porcentaje y monto
-            double porcentaje = Double.parseDouble(porcentajeTexto);
-            cupones.porcentaje = porcentaje;
-
-            double monto = Double.parseDouble(montoTexto);
-            cupones.monto = monto;
+            cupones.valor_total = valorTexto;
 
             // Conversión de String a Date
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -334,30 +315,44 @@ public class inventario_cupones extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel modelo = (DefaultTableModel) jTable_cupones.getModel(); // Usa tu JTable
-    modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+        DefaultTableModel modelo = (DefaultTableModel) jTable_cupones.getModel();
+        modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+        ProyectoB.Cupones.clear(); // Limpia la lista de cupones antes de importar
 
-    try (BufferedReader lector = new BufferedReader(new FileReader("rutaCupones.csv"))) {
-        String linea;
-        while ((linea = lector.readLine()) != null) {
-            String[] partes = linea.split("\\|"); // Divide la línea en partes usando el separador '|'
-            if (partes.length == 4) { // Asegúrate de que hay suficientes partes
-                String codigo = partes[0];
-                double porcentaje = Double.parseDouble(partes[1]);
-                double monto = Double.parseDouble(partes[2]);
-                String fecha = partes[3];
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        formatoFecha.setLenient(false); // Hacer que el parser sea estricto
 
-                // Agrega la fila al modelo de la tabla
-                modelo.addRow(new Object[]{codigo, porcentaje, monto, fecha});
+        try (BufferedReader lector = new BufferedReader(new FileReader("rutaCupones.csv"))) {
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                String[] partes = linea.split("\\|"); // Divide la línea en partes usando el separador '|'
+                if (partes.length == 3) { // Asegúrate de que hay suficientes partes
+                    String codigo = partes[0];
+                    String valor_total = partes[1];
+                    String fechaTexto = partes[2];
+
+                    // Validar la fecha
+                    try {
+                        Date fecha = formatoFecha.parse(fechaTexto); // Intenta parsear la fecha
+                        // Crear un nuevo objeto cupones y agregarlo a la lista
+                        cupones c = new cupones();
+                        c.codigo = codigo;
+                        c.valor_total = valor_total;
+                        c.fecha = fecha;
+                        ProyectoB.Cupones.add(c); // Agregar a la lista
+                        modelo.addRow(new Object[]{codigo, valor_total, fechaTexto}); // Agrega la fila al modelo de la tabla
+                    } catch (ParseException e) {
+                        JOptionPane.showMessageDialog(this, "Fecha inválida en el archivo: " + fechaTexto);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Formato de línea inválido: " + linea);
+                }
             }
+            JOptionPane.showMessageDialog(this, "Cupones cargados exitosamente desde el archivo.");
+        } catch (IOException ex) {
+            Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al cargar cupones: " + ex.getMessage(), ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + ex.getMessage());
         }
-        JOptionPane.showMessageDialog(this, "Cupones cargados exitosamente desde el archivo.");
-    } catch (IOException ex) {
-        Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al cargar cupones: " + ex.getMessage(), ex);
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Error en el formato de los datos: " + ex.getMessage());
-    }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -370,7 +365,6 @@ public class inventario_cupones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -378,8 +372,7 @@ public class inventario_cupones extends javax.swing.JFrame {
     private javax.swing.JTable jTable_cupones;
     private javax.swing.JTextField jTextField_codigo;
     private javax.swing.JTextField jTextField_fecha;
-    private javax.swing.JTextField jTextField_monto;
-    private javax.swing.JTextField jTextField_porcentaje;
+    private javax.swing.JTextField jTextField_valor_total;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,6 +2,7 @@ package com.mycompany.proyectob;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -82,6 +83,9 @@ public class Ventas extends javax.swing.JFrame {
         jTextField_fecha = new javax.swing.JTextField();
         jButton_fecha = new javax.swing.JButton();
         salir = new javax.swing.JButton();
+        jCheckBox_descuento = new javax.swing.JCheckBox();
+        jTextField_descuento = new javax.swing.JTextField();
+        jButton_validezcp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,10 +188,24 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
 
-        salir.setText("jButton1");
+        salir.setText("Regresar");
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);
+            }
+        });
+
+        jCheckBox_descuento.setText("Descuento");
+        jCheckBox_descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_descuentoActionPerformed(evt);
+            }
+        });
+
+        jButton_validezcp.setText("verificar cupón");
+        jButton_validezcp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_validezcpActionPerformed(evt);
             }
         });
 
@@ -204,52 +222,6 @@ public class Ventas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 74, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jComboBox_libros, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(24, 24, 24)
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton_agregar))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButton_registrarventa)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton_calcular)
-                                            .addGap(24, 24, 24)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                    .addComponent(jLabel10)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(43, 43, 43)
-                                                    .addComponent(jLabel9)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(jTextField_total, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton_vendedor)
-                                        .addGap(90, 90, 90)
-                                        .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton_fecha)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel11)
@@ -269,7 +241,61 @@ public class Ventas extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(salir)
                                     .addComponent(jButton_registrar))
-                                .addGap(12, 12, 12))))))
+                                .addGap(12, 12, 12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jComboBox_libros, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton_agregar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton_vendedor)
+                                        .addGap(90, 90, 90)
+                                        .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton_fecha)))
+                                .addGap(23, 23, 23))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(17, 17, 17)
+                                        .addComponent(jButton_registrarventa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton_calcular)
+                                        .addGap(24, 24, 24)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addComponent(jLabel9)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jTextField_total, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(47, 47, 47)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextField_descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jButton_validezcp))
+                                            .addComponent(jCheckBox_descuento))))
+                                .addGap(0, 74, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,15 +333,23 @@ public class Ventas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_registrarventa)
-                    .addComponent(jButton_calcular))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_descuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_validezcp)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextField_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_registrarventa)
+                            .addComponent(jButton_calcular)
+                            .addComponent(jCheckBox_descuento))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
 
@@ -361,63 +395,150 @@ public class Ventas extends javax.swing.JFrame {
             return; // Salir si no hay suficiente inventario
         }
 
+        // Calcular el precio total
+        double precioTotal = cantidadSolicitada * libroSeleccionado.precio;
+
         // Crear el libro para la venta
         libros l = new libros();
         l.titulo = libroSeleccionado.titulo;
         l.cantidad = cantidadSolicitada;
-        l.precio = libroSeleccionado.precio; // Usar el precio del libro existente
+        l.precio = precioTotal; // Usar el precio total calculado
 
         // Agregar el libro a la lista de ventas
-        librosVenta.add(l); // Agregar a la lista de ventas
+        librosVenta.add(l);
 
         // Restar del inventario
-        libroSeleccionado.cantidad -= cantidadSolicitada; // Restar la cantidad del inventario
+        libroSeleccionado.cantidad -= cantidadSolicitada;
 
         // Limpiar la tabla antes de pintar
         pintarTabla();
-
     }//GEN-LAST:event_jButton_agregarActionPerformed
 
     private void jButton_calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calcularActionPerformed
 
         double total = 0.0; // Inicializar el total
 
-        // Recorrer la lista de libros2
-        for (libros libro : ProyectoB.libros) {
-            total += libro.precio; // Sumar al total
-
+        // Calcular el total de los libros en librosVenta
+        for (libros libro : librosVenta) {
+            total += libro.precio; // Sumar precio por cantidad
         }
 
-        //el redondedo a dos decimales lo realice multiplicando el 100 y dividiendo el 100 si quiero que sea a 3 o mas se incrementaria 0 como por ejemplo 3 seria 1000.
+        // Verificar si se aplicará un descuento
+        if (jCheckBox_descuento.isSelected()) {
+            String codigoIngresado = jTextField_descuento.getText();
+            double descuento = 0.0;
+
+            // Buscar el cupón en la lista
+            for (cupones c : ProyectoB.Cupones) {
+                if (c.codigo.equals(codigoIngresado)) {
+                    // Verificar si la fecha no está vencida
+                    if (c.fecha.after(new Date())) {
+                        String valorTotal = c.valor_total; // Obtener el valor del descuento
+
+                        // Verificar si es un porcentaje o un monto
+                        if (valorTotal.endsWith("%")) {
+                            // Es un porcentaje
+                            valorTotal = valorTotal.replace("%", ""); // Eliminar el símbolo %
+                            try {
+                                double porcentaje = Double.parseDouble(valorTotal);
+                                descuento = total * (porcentaje / 100); // Calcular el descuento
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(this, "El formato del porcentaje no es válido.");
+                                return; // Salir si hay un error
+                            }
+                        } else {
+                            // Es un monto
+                            try {
+                                descuento = Double.parseDouble(valorTotal);
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(this, "El formato del monto no es válido.");
+                                return; // Salir si hay un error
+                            }
+                        }
+
+                        // Verificar si el descuento sobrepasa el total
+                        if (descuento > total) {
+                            double montoAFavor = descuento - total; // Calcular el monto a favor
+                            JOptionPane.showMessageDialog(null,
+                                    "El descuento sobrepasa el valor de la compra. "
+                                    + "El monto a favor es: " + String.format("%.2f", montoAFavor));
+                            descuento = total; // Aplicar solo el total
+                        }
+
+                        // Aplicar el descuento al total
+                        total -= descuento;
+                        ProyectoB.Cupones.remove(c); // Elimina el cupón después de usarlo
+                        JOptionPane.showMessageDialog(null, "Descuento aplicado.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El cupón está vencido.");
+                    }
+                    break; // Salir del loop si encontramos el cupón
+                }
+            }
+
+            if (descuento == 0) {
+                JOptionPane.showMessageDialog(null, "El código del cupón no existe.");
+            }
+        }
+
+        // Redondear a dos decimales
         double TotalsIva = Math.round((total / 1.12) * 100.0) / 100.0;
-        // Mostrar el total en jTextField7
-        jTextField_total.setText(String.valueOf(total));
+
+        // Mostrar el total en jTextField
+        jTextField_total.setText(String.format("%.2f", total)); // Formato a dos decimales
         jTextField_sIVA.setText(String.valueOf(TotalsIva));
+
     }//GEN-LAST:event_jButton_calcularActionPerformed
 
     private void jButton_registrarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarventaActionPerformed
-        ventas c = new ventas();
-        c.vendedor = jTextField_vendedor.getText();
-        c.cliente_nombre = jTextField_cliente.getText();
-        c.cliente_nit = jTextField_nit.getText();
-        c.cliente_dirreción = jTextField_direccion.getText();
+       // Verificar campos vacíos
+    if (jTextField_vendedor.getText().isEmpty() || 
+        jTextField_cliente.getText().isEmpty() || 
+        jTextField_nit.getText().isEmpty() || 
+        jTextField_direccion.getText().isEmpty() || 
+        jTextField_total.getText().isEmpty() || 
+        jTextField_fecha.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+        return; // Salir si hay campos vacíos
+    }
+
+    ventas c = new ventas();
+    c.vendedor = jTextField_vendedor.getText();
+    c.cliente_nombre = jTextField_cliente.getText();
+    c.cliente_nit = jTextField_nit.getText();
+    c.cliente_dirreción = jTextField_direccion.getText();
+
+    try {
         c.cliente_total = Double.parseDouble(jTextField_total.getText());
-        c.fecha = jTextField_fecha.getText();
         c.cliente_sIva = Double.parseDouble(jTextField_sIVA.getText());
+        c.fecha = jTextField_fecha.getText();
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error en los valores numéricos: " + e.getMessage());
+        return; // Salir si hay un error
+    }
 
-        // Agregar los libros vendidos a la lista libros2
-        for (libros libro : librosVenta) {
-            libros2 libroVenta = new libros2();
-            libroVenta.titulo_venta = libro.titulo;
-            libroVenta.cantidad_venta = libro.cantidad;
-            libroVenta.precio_venta = libro.precio;
-            ProyectoB.libros2.add(libroVenta); // Añadir a la lista de libros vendidos
-        }
+    // Verificar que librosVenta no esté vacío
+    if (librosVenta.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay libros en la venta.");
+        return; // Salir si no hay libros
+    }
 
-        JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
-        ProyectoB.ventas.add(c);
+    // Agregar los libros vendidos a la lista libros2
+    for (libros libro : librosVenta) {
+        libros2 libroVenta = new libros2();
+        libroVenta.titulo_venta = libro.titulo; // Asegúrate de que esto se esté utilizando correctamente
+        libroVenta.cantidad_venta = libro.cantidad;
+        libroVenta.precio_venta = libro.precio;
 
+        ProyectoB.libros2.add(libroVenta); // Añadir a la lista de libros vendidos
+    }
 
+    JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
+    ProyectoB.ventas.add(c); // Agregar la venta a la lista
+    
+     // Limpiar la lista de librosVenta y la tabla
+    librosVenta.clear(); // Limpia la lista de libros vendidos
+    pintarTabla(); // Vuelve a pintar la tabla para que esté vacía
     }//GEN-LAST:event_jButton_registrarventaActionPerformed
 
     private void jTextField_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_fechaActionPerformed
@@ -442,6 +563,42 @@ public class Ventas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
 
+    private void jCheckBox_descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_descuentoActionPerformed
+        // Verifica si el checkbox está seleccionado
+        if (jCheckBox_descuento.isSelected()) {
+            // Muestra el texto en el JTextField
+            jTextField_descuento.setVisible(true);
+
+        } else {
+            // Oculta el texto si el checkbox no está seleccionado
+            jTextField_descuento.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBox_descuentoActionPerformed
+
+    private void jButton_validezcpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_validezcpActionPerformed
+        String codigoIngresado = jTextField_descuento.getText();
+        boolean valido = false;
+
+        // Obtener la fecha actual
+        Date fechaActual = new Date();
+        // Buscar el cupón en la lista
+        for (cupones c : ProyectoB.Cupones) {
+            if (c.codigo.equals(codigoIngresado)) {
+                valido = true; // El código es válido
+                // Verificar si la fecha no está vencida
+                if (c.fecha.after(fechaActual)) {
+                    JOptionPane.showMessageDialog(null, "El cupón es válido.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El cupón está vencido.");
+                }
+                break; // Salir del loop si encontramos el cupón
+            }
+        }
+
+        if (!valido) {
+            JOptionPane.showMessageDialog(null, "El código del cupón no existe.");
+        }
+    }//GEN-LAST:event_jButton_validezcpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_agregar;
@@ -449,7 +606,9 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JButton jButton_fecha;
     private javax.swing.JButton jButton_registrar;
     private javax.swing.JButton jButton_registrarventa;
+    private javax.swing.JButton jButton_validezcp;
     private javax.swing.JButton jButton_vendedor;
+    private javax.swing.JCheckBox jCheckBox_descuento;
     private javax.swing.JComboBox<String> jComboBox_libros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -466,6 +625,7 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField_cantidad;
     private javax.swing.JTextField jTextField_cliente;
+    private javax.swing.JTextField jTextField_descuento;
     private javax.swing.JTextField jTextField_direccion;
     private javax.swing.JTextField jTextField_fecha;
     private javax.swing.JTextField jTextField_nit;

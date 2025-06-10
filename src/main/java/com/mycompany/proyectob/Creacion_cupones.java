@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.proyectob;
 
 import java.io.FileWriter;
@@ -18,7 +14,6 @@ import javax.swing.JOptionPane;
  *
  * @author emely
  */
-
 public class Creacion_cupones extends javax.swing.JFrame {
 
     /**
@@ -42,17 +37,16 @@ public class Creacion_cupones extends javax.swing.JFrame {
         jButton_salir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField_codigo = new javax.swing.JTextField();
-        jTextField_porcentaje = new javax.swing.JTextField();
-        jTextField_monto = new javax.swing.JTextField();
+        jTextField_valorcupon = new javax.swing.JTextField();
         jTextField_fecha = new javax.swing.JTextField();
         jButton_guardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton_exportar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton_limpiar = new javax.swing.JButton();
+        jCheckBox_monto = new javax.swing.JCheckBox();
+        jCheckBox_porcentaje = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("creacion de cupones");
@@ -95,15 +89,8 @@ public class Creacion_cupones extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel3.setText("Valor del cupón");
-
         jLabel4.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
-        jLabel4.setText("porcentaje:");
-
-        jLabel5.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
-        jLabel5.setText("monto:");
+        jLabel4.setText("Valor del cupón:");
 
         jLabel6.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
         jLabel6.setText("Fecha de vecimiento:");
@@ -117,42 +104,48 @@ public class Creacion_cupones extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox_monto.setText("monto");
+
+        jCheckBox_porcentaje.setText("porcentaje");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_fecha))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_monto)
-                            .addComponent(jTextField_porcentaje)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 188, Short.MAX_VALUE)
+                        .addContainerGap(200, Short.MAX_VALUE)
                         .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton_exportar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton_limpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton_limpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(32, 32, 32)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jCheckBox_monto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jCheckBox_porcentaje)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                                            .addComponent(jTextField_valorcupon))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE))))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,27 +155,25 @@ public class Creacion_cupones extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_valorcupon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField_monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jCheckBox_monto)
+                    .addComponent(jCheckBox_porcentaje))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addComponent(jButton_guardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_exportar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_limpiar)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -233,11 +224,32 @@ public class Creacion_cupones extends javax.swing.JFrame {
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
 
-// Crear una instancia de cupones
+        // Crear una instancia de cupones
         cupones c = new cupones();
         c.codigo = jTextField_codigo.getText();
-        c.porcentaje = Double.parseDouble(jTextField_porcentaje.getText());
-        c.monto = Double.parseDouble(jTextField_monto.getText());
+
+        // Validar que el código no esté vacío
+        if (c.codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido.");
+            return;
+        }
+
+        // Verifica si el checkbox está seleccionado
+        if (jCheckBox_monto.isSelected()) {
+            try {
+                c.valor_total = jTextField_valorcupon.getText();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un monto válido.");
+                return;
+            }
+        } else if (jCheckBox_porcentaje.isSelected()) {
+            String valorPorcentaje = jTextField_valorcupon.getText();
+            c.valor_total = valorPorcentaje + "%";
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione si es monto o porcentaje.");
+            return;
+        }
+
         String fechaTexto = jTextField_fecha.getText(); // Obtener la fecha como String
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         formatoFecha.setLenient(false); // Hacer que el parser sea estricto
@@ -246,15 +258,16 @@ public class Creacion_cupones extends javax.swing.JFrame {
             // Intentar parsear la fecha
             Date fecha = formatoFecha.parse(fechaTexto);
             c.fecha = fecha; // Asignar el objeto Date a c.fecha
-            JOptionPane.showMessageDialog(this, "Cupón creado exitosamente");
-        } catch (ParseException e) { // Corregido aquí
+        } catch (ParseException e) {
             // Manejo de errores si la fecha no es válida
             JOptionPane.showMessageDialog(this, "Ingrese una fecha válida en el formato dd/MM/yyyy.");
             return; // Salir si hay un error
         }
 
-// Agregar el cupón a la lista
-        ProyectoB.cupones.add(c);
+        // Agregar el cupón a la lista
+        ProyectoB.Cupones.add(c);
+        JOptionPane.showMessageDialog(this, "Cupón creado exitosamente.");
+
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
     private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
@@ -263,31 +276,28 @@ public class Creacion_cupones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_salirActionPerformed
 
     private void jButton_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exportarActionPerformed
-        // TODO add your handling code here:
-        //ProyectoB.cupones.clear();
         try (PrintWriter escribir = new PrintWriter(new FileWriter("rutaCupones.csv"))) {
-            for (cupones c : ProyectoB.cupones) {
-                escribir.printf("%s|%.2f|%.2f|%s%n", c.codigo, c.porcentaje, c.monto, new SimpleDateFormat("dd/MM/yyyy").format(c.fecha));
+            for (cupones c : ProyectoB.Cupones) {
+                escribir.printf("%s|%s|%s%n", c.codigo, c.valor_total, new SimpleDateFormat("dd/MM/yyyy").format(c.fecha));
             }
             JOptionPane.showMessageDialog(this, "Cupones exportados exitosamente a CSV.");
         } catch (IOException ex) {
             Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al exportar a CSV: " + ex.getMessage(), ex);
         }
-    
     }//GEN-LAST:event_jButton_exportarActionPerformed
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
-        // TODO add your handling code here:
-        ProyectoB.cupones.clear();
-                try (PrintWriter escribir = new PrintWriter(new FileWriter("rutaCupones.csv"))) {
-            for (cupones c : ProyectoB.cupones) {
-                escribir.printf("%s|%.2f|%.2f|%s%n", c.codigo, c.porcentaje, c.monto, new SimpleDateFormat("dd/MM/yyyy").format(c.fecha));
-            }
-            JOptionPane.showMessageDialog(this, "Cupones exportados exitosamente a CSV.");
+        // Limpiar la lista de cupones
+        ProyectoB.Cupones.clear();
+        JOptionPane.showMessageDialog(this, "Cupones limpiados exitosamente.");
+
+        // Limpiar el archivo CSV
+        try (PrintWriter escribir = new PrintWriter(new FileWriter("rutaCupones.csv"))) {
+            // Este bloque simplemente crea un archivo vacío.
         } catch (IOException ex) {
-            Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al exportar a CSV: " + ex.getMessage(), ex);
+            Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al limpiar el archivo CSV: " + ex.getMessage(), ex);
         }
-    
+
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
 
@@ -296,17 +306,16 @@ public class Creacion_cupones extends javax.swing.JFrame {
     private javax.swing.JButton jButton_guardar;
     private javax.swing.JButton jButton_limpiar;
     private javax.swing.JButton jButton_salir;
+    private javax.swing.JCheckBox jCheckBox_monto;
+    private javax.swing.JCheckBox jCheckBox_porcentaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField_codigo;
     private javax.swing.JTextField jTextField_fecha;
-    private javax.swing.JTextField jTextField_monto;
-    private javax.swing.JTextField jTextField_porcentaje;
+    private javax.swing.JTextField jTextField_valorcupon;
     // End of variables declaration//GEN-END:variables
 }

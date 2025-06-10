@@ -12,6 +12,5 @@ public class libros {
     public String autor;
     public double precio;
     public int cantidad;
-    public String genero;
-    
+    public String genero;    
 }
