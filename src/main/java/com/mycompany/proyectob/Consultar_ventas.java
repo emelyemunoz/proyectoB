@@ -1,12 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.proyectob;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 /**
  *
  * @author emely
@@ -22,7 +26,7 @@ public class Consultar_ventas extends javax.swing.JFrame {
     }
 
     private void pintarTabla() {
-        DefaultTableModel t = new DefaultTableModel(new String[]{"Vendedor", "fecha", "Cliente", "nit", "direción", "total", "total sin IVA"}, ProyectoB.ventas.size());
+        DefaultTableModel t = new DefaultTableModel(new String[]{"Vendedor", "fecha", "Cliente", "nit", "direción", "descuento", "total con IVA", "total sin IVA"}, ProyectoB.ventas.size());
         jTable1.setModel(t);
 
         TableModel tabla = jTable1.getModel();
@@ -34,8 +38,9 @@ public class Consultar_ventas extends javax.swing.JFrame {
             tabla.setValueAt(l.cliente_nombre, i, 2);
             tabla.setValueAt(l.cliente_nit, i, 3);
             tabla.setValueAt(l.cliente_dirreción, i, 4);
-            tabla.setValueAt(l.cliente_total, i, 5);
-            tabla.setValueAt(l.cliente_sIva, i, 6);
+            tabla.setValueAt(l.valor_descuento, i, 5);
+            tabla.setValueAt(l.cliente_total, i, 6);
+            tabla.setValueAt(l.cliente_sIva, i, 7);
 
         }
     }
@@ -54,6 +59,9 @@ public class Consultar_ventas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
+        jButton_exportar = new javax.swing.JButton();
+        jButton_limpiarcsv = new javax.swing.JButton();
+        jButton_importar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +113,27 @@ public class Consultar_ventas extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
+        jButton_exportar.setText("Exportar");
+        jButton_exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_exportarActionPerformed(evt);
+            }
+        });
+
+        jButton_limpiarcsv.setText("Limpiar");
+        jButton_limpiarcsv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_limpiarcsvActionPerformed(evt);
+            }
+        });
+
+        jButton_importar.setText("Importar");
+        jButton_importar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_importarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,7 +141,15 @@ public class Consultar_ventas extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_limpiarcsv))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton_importar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_exportar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,7 +157,14 @@ public class Consultar_ventas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_exportar)
+                    .addComponent(jButton_importar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_limpiarcsv)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,7 +175,93 @@ public class Consultar_ventas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
 
+    private void jButton_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exportarActionPerformed
+    try (PrintWriter escribir = new PrintWriter(new FileWriter("rutaventas.csv"))) {
+        // Escribir encabezados en el CSV
+        escribir.println("Vendedor,Fecha,Cliente,Nit,Dirección,Descuento,Total con IVA,Total sin IVA");
+
+        for (ventas c : ProyectoB.ventas) {
+            // Escribir cada venta en el CSV
+            escribir.printf("%s,%s,%s,%s,%s,%s,%.2f,%.2f%n", 
+                c.vendedor, c.fecha, c.cliente_nombre, c.cliente_nit, 
+                c.cliente_dirreción, c.valor_descuento, c.cliente_total, c.cliente_sIva);
+        }
+
+        JOptionPane.showMessageDialog(this, "Ventas exportadas exitosamente a CSV.");
+    } catch (IOException ex) {
+        Logger.getLogger(librosvendidos.class.getName()).log(Level.SEVERE, "Error al exportar a CSV: " + ex.getMessage(), ex);
+    }
+
+    }//GEN-LAST:event_jButton_exportarActionPerformed
+
+    private void jButton_limpiarcsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarcsvActionPerformed
+        ProyectoB.ventas.clear();
+
+        JOptionPane.showMessageDialog(this, "ventas limpiados exitosamente.");
+
+        // Limpiar el archivo CSV
+        try (PrintWriter escribir = new PrintWriter(new FileWriter("rutaventas.csv"))) {
+            // Este bloque simplemente crea un archivo vacío.
+        } catch (IOException ex) {
+            Logger.getLogger(librosvendidos.class.getName()).log(Level.SEVERE, "Error al limpiar el archivo CSV: " + ex.getMessage(), ex);
+        }
+
+    }//GEN-LAST:event_jButton_limpiarcsvActionPerformed
+
+    private void jButton_importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_importarActionPerformed
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+    ProyectoB.ventas.clear(); // Limpia la lista de ventas antes de importar
+    try (BufferedReader lector = new BufferedReader(new FileReader("rutaventas.csv"))) {
+        String linea;
+        boolean esPrimeraLinea = true; // Para omitir la línea de encabezado
+        while ((linea = lector.readLine()) != null) {
+            if (esPrimeraLinea) {
+                esPrimeraLinea = false; // Omitir encabezado
+                continue;
+            }
+            String[] partes = linea.split(","); // Divide la línea en partes usando el separador ','
+            if (partes.length == 8) { // Asegúrate de que hay suficientes partes
+                String vendedor = partes[0];
+                String fecha = partes[1];
+                String cliente_nombre = partes[2];
+                String cliente_nit = partes[3];
+                String cliente_dirreción = partes[4];
+                String valor_descuento = partes[5];
+                double cliente_total = Double.parseDouble(partes[6]);
+                double cliente_sIva = Double.parseDouble(partes[7]);
+
+                // Crear un nuevo objeto de venta y agregarlo a la lista
+                ventas venta = new ventas();
+                venta.vendedor = vendedor;
+                venta.fecha = fecha;
+                venta.cliente_nombre = cliente_nombre;
+                venta.cliente_nit = cliente_nit;
+                venta.cliente_dirreción = cliente_dirreción;
+                venta.valor_descuento = valor_descuento;
+                venta.cliente_total = cliente_total;
+                venta.cliente_sIva = cliente_sIva;
+
+                ProyectoB.ventas.add(venta); // Añadir a la lista de ventas
+                modelo.addRow(new Object[]{vendedor, fecha, cliente_nombre, cliente_nit, cliente_dirreción, valor_descuento, cliente_total, cliente_sIva}); // Añadir a la tabla
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de línea inválido: " + linea);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Ventas cargadas exitosamente desde el archivo.");
+    } catch (IOException ex) {
+        Logger.getLogger(Consultar_ventas.class.getName()).log(Level.SEVERE, "Error al cargar ventas: " + ex.getMessage(), ex);
+        JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + ex.getMessage());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error en formato numérico: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_jButton_importarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_exportar;
+    private javax.swing.JButton jButton_importar;
+    private javax.swing.JButton jButton_limpiarcsv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,8 +1,19 @@
 package com.mycompany.proyectob;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 /**
  *
  * @author emely
@@ -16,21 +27,24 @@ public class librosvendidos extends javax.swing.JFrame {
         initComponents();
         pintarTabla();
     }
+
     private void pintarTabla() {
-        DefaultTableModel t = new DefaultTableModel(new String[]{"Titulo", "Cantidad", "Precio"}, ProyectoB.libros2.size());
+        DefaultTableModel t = new DefaultTableModel(new String[]{"Fecha", "Titulo", "Cantidad", "Precio"}, ProyectoB.libros2.size());
         jTable1.setModel(t);
 
         TableModel tabla = jTable1.getModel();
 
         for (int i = 0; i < ProyectoB.libros2.size(); i++) {
             libros2 l = ProyectoB.libros2.get(i);
-            tabla.setValueAt(l.titulo_venta, i, 0);
-            tabla.setValueAt(l.cantidad_venta, i, 1);
-            tabla.setValueAt(l.precio_venta, i, 2);
+            tabla.setValueAt(l.fecha, i, 0);
+            tabla.setValueAt(l.titulo_venta, i, 1);
+            tabla.setValueAt(l.cantidad_venta, i, 2);
+            tabla.setValueAt(l.precio_venta, i, 3);
 
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,6 +61,9 @@ public class librosvendidos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton_exportar = new javax.swing.JButton();
+        jButton_limpiarcsv = new javax.swing.JButton();
+        jButton_importar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +126,33 @@ public class librosvendidos extends javax.swing.JFrame {
             }
         });
 
+        jButton_exportar.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_exportar.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_exportar.setText("Exportar");
+        jButton_exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_exportarActionPerformed(evt);
+            }
+        });
+
+        jButton_limpiarcsv.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_limpiarcsv.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_limpiarcsv.setText("Limpiar CSV");
+        jButton_limpiarcsv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_limpiarcsvActionPerformed(evt);
+            }
+        });
+
+        jButton_importar.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_importar.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_importar.setText("Importar");
+        jButton_importar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_importarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -118,8 +162,14 @@ public class librosvendidos extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton_exportar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_importar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton_limpiarcsv)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,8 +178,13 @@ public class librosvendidos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton_exportar)
+                    .addComponent(jButton_importar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_limpiarcsv)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,16 +206,92 @@ public class librosvendidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         pintarTabla();
+        pintarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
 
+    private void jButton_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exportarActionPerformed
+        try (PrintWriter escribir = new PrintWriter(new FileWriter("rutalibrosvendidos.csv"))) {
+            // Escribir encabezados en el CSV
+            escribir.println("Título,Cantidad,Precio,Fecha");
+
+            for (libros2 c : ProyectoB.libros2) {
+                // Escribir cada libro en el CSV
+                escribir.printf("%s,%d,%.2f,%s%n", c.titulo_venta, c.cantidad_venta, c.precio_venta, c.fecha);
+            }
+
+            JOptionPane.showMessageDialog(this, "Libros exportados exitosamente a CSV.");
+        } catch (IOException ex) {
+            Logger.getLogger(librosvendidos.class.getName()).log(Level.SEVERE, "Error al exportar a CSV: " + ex.getMessage(), ex);
+        }
+    }//GEN-LAST:event_jButton_exportarActionPerformed
+
+    private void jButton_limpiarcsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarcsvActionPerformed
+        ProyectoB.libros2.clear();
+
+        JOptionPane.showMessageDialog(this, "libros limpiados exitosamente.");
+
+        // Limpiar el archivo CSV
+        try (PrintWriter escribir = new PrintWriter(new FileWriter("rutalibrosvendidos.csv"))) {
+            // Este bloque simplemente crea un archivo vacío.
+        } catch (IOException ex) {
+            Logger.getLogger(librosvendidos.class.getName()).log(Level.SEVERE, "Error al limpiar el archivo CSV: " + ex.getMessage(), ex);
+        }
+
+
+    }//GEN-LAST:event_jButton_limpiarcsvActionPerformed
+
+    private void jButton_importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_importarActionPerformed
+       DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+    ProyectoB.libros2.clear(); // Limpia la lista de libros antes de importar
+
+    try (BufferedReader lector = new BufferedReader(new FileReader("rutalibrosvendidos.csv"))) {
+        String linea;
+        boolean esPrimeraLinea = true; // Para omitir la línea de encabezado
+        while ((linea = lector.readLine()) != null) {
+            if (esPrimeraLinea) {
+                esPrimeraLinea = false; // Omitir encabezado
+                continue;
+            }
+
+            String[] partes = linea.split(","); // Divide la línea en partes usando el separador ','
+            if (partes.length == 4) { // Asegúrate de que hay suficientes partes
+                String fecha = partes[3]; // Cambia el índice para que coincida con el formato correcto
+                String titulo_venta = partes[0];
+                int cantidad_venta = Integer.parseInt(partes[1]);
+                double precio_venta = Double.parseDouble(partes[2]);
+
+                // Crear un nuevo objeto libros2 y agregarlo a la lista
+                libros2 libro = new libros2();
+                libro.titulo_venta = titulo_venta;
+                libro.cantidad_venta = cantidad_venta;
+                libro.precio_venta = precio_venta;
+                libro.fecha = fecha;
+
+                ProyectoB.libros2.add(libro); // Añadir a la lista de libros
+                modelo.addRow(new Object[]{fecha, titulo_venta, cantidad_venta, precio_venta}); // Añadir a la tabla
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de línea inválido: " + linea);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Libros cargados exitosamente desde el archivo.");
+    } catch (IOException ex) {
+        Logger.getLogger(Creacion_cupones.class.getName()).log(Level.SEVERE, "Error al cargar libros: " + ex.getMessage(), ex);
+        JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + ex.getMessage());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error en formato numérico: " + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton_importarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_exportar;
+    private javax.swing.JButton jButton_importar;
+    private javax.swing.JButton jButton_limpiarcsv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -332,7 +332,6 @@ public class Ventas extends javax.swing.JFrame {
                     .addComponent(jComboBox_libros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -350,7 +349,7 @@ public class Ventas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jTextField_sIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         pack();
@@ -418,26 +417,27 @@ public class Ventas extends javax.swing.JFrame {
 
         double total = 0.0; // Inicializar el total
 
-        // Calcular el total de los libros en librosVenta
+// Calcular el total de los libros en librosVenta
         for (libros libro : librosVenta) {
             total += libro.precio; // Sumar precio por cantidad
         }
 
-        // Verificar si se aplicará un descuento
+// Verificar si se aplicará un descuento
         if (jCheckBox_descuento.isSelected()) {
             String codigoIngresado = jTextField_descuento.getText();
             double descuento = 0.0;
+            cupones cupónAplicado = null; // Variable para almacenar el cupón encontrado
 
             // Buscar el cupón en la lista
             for (cupones c : ProyectoB.Cupones) {
                 if (c.codigo.equals(codigoIngresado)) {
                     // Verificar si la fecha no está vencida
                     if (c.fecha.after(new Date())) {
+                        cupónAplicado = c; // Guardar el cupón encontrado
                         String valorTotal = c.valor_total; // Obtener el valor del descuento
 
                         // Verificar si es un porcentaje o un monto
                         if (valorTotal.endsWith("%")) {
-                            // Es un porcentaje
                             valorTotal = valorTotal.replace("%", ""); // Eliminar el símbolo %
                             try {
                                 double porcentaje = Double.parseDouble(valorTotal);
@@ -467,7 +467,6 @@ public class Ventas extends javax.swing.JFrame {
 
                         // Aplicar el descuento al total
                         total -= descuento;
-                        ProyectoB.Cupones.remove(c); // Elimina el cupón después de usarlo
                         JOptionPane.showMessageDialog(null, "Descuento aplicado.");
                     } else {
                         JOptionPane.showMessageDialog(null, "El cupón está vencido.");
@@ -476,69 +475,105 @@ public class Ventas extends javax.swing.JFrame {
                 }
             }
 
-            if (descuento == 0) {
-                JOptionPane.showMessageDialog(null, "El código del cupón no existe.");
+            if (cupónAplicado != null) {
+                // Aquí se puede guardar el cupón encontrado para eliminarlo más tarde
+                // No elimines el cupón aquí
             }
         }
 
-        // Redondear a dos decimales
+// Redondear a dos decimales
         double TotalsIva = Math.round((total / 1.12) * 100.0) / 100.0;
 
-        // Mostrar el total en jTextField
+// Mostrar el total en jTextField
         jTextField_total.setText(String.format("%.2f", total)); // Formato a dos decimales
         jTextField_sIVA.setText(String.valueOf(TotalsIva));
-
     }//GEN-LAST:event_jButton_calcularActionPerformed
 
     private void jButton_registrarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarventaActionPerformed
-       // Verificar campos vacíos
-    if (jTextField_vendedor.getText().isEmpty() || 
-        jTextField_cliente.getText().isEmpty() || 
-        jTextField_nit.getText().isEmpty() || 
-        jTextField_direccion.getText().isEmpty() || 
-        jTextField_total.getText().isEmpty() || 
-        jTextField_fecha.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
-        return; // Salir si hay campos vacíos
-    }
+        // Verificar campos vacíos
+        if (jTextField_vendedor.getText().isEmpty()
+                || jTextField_cliente.getText().isEmpty()
+                || jTextField_nit.getText().isEmpty()
+                || jTextField_direccion.getText().isEmpty()
+                || jTextField_total.getText().isEmpty()
+                || jTextField_fecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+            return; // Salir si hay campos vacíos
+        }
 
-    ventas c = new ventas();
-    c.vendedor = jTextField_vendedor.getText();
-    c.cliente_nombre = jTextField_cliente.getText();
-    c.cliente_nit = jTextField_nit.getText();
-    c.cliente_dirreción = jTextField_direccion.getText();
+        // Crear un objeto de venta
+        ventas c = new ventas();
+        c.vendedor = jTextField_vendedor.getText();
+        c.cliente_nombre = jTextField_cliente.getText();
+        c.cliente_nit = jTextField_nit.getText();
+        c.cliente_dirreción = jTextField_direccion.getText();
 
-    try {
-        c.cliente_total = Double.parseDouble(jTextField_total.getText());
-        c.cliente_sIva = Double.parseDouble(jTextField_sIVA.getText());
-        c.fecha = jTextField_fecha.getText();
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Error en los valores numéricos: " + e.getMessage());
-        return; // Salir si hay un error
-    }
+        try {
+            c.cliente_total = Double.parseDouble(jTextField_total.getText());
+            c.cliente_sIva = Double.parseDouble(jTextField_sIVA.getText());
+            c.fecha = jTextField_fecha.getText();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en los valores numéricos: " + e.getMessage());
+            return; // Salir si hay un error
+        }
 
-    // Verificar que librosVenta no esté vacío
-    if (librosVenta.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No hay libros en la venta.");
-        return; // Salir si no hay libros
-    }
+        // Verificar que librosVenta no esté vacío
+        if (librosVenta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay libros en la venta.");
+            return; // Salir si no hay libros
+        }
 
-    // Agregar los libros vendidos a la lista libros2
-    for (libros libro : librosVenta) {
-        libros2 libroVenta = new libros2();
-        libroVenta.titulo_venta = libro.titulo; // Asegúrate de que esto se esté utilizando correctamente
-        libroVenta.cantidad_venta = libro.cantidad;
-        libroVenta.precio_venta = libro.precio;
+        // Registrar el valor del cupón si se está utilizando
+        String valorCupon = null;
+        cupones cupónAplicado = null; // Variable para almacenar el cupón encontrado
+        if (jCheckBox_descuento.isSelected()) {
+            String codigoIngresado = jTextField_descuento.getText();
 
-        ProyectoB.libros2.add(libroVenta); // Añadir a la lista de libros vendidos
-    }
+            // Buscar el cupón en la lista
+            for (cupones cpn : ProyectoB.Cupones) {
+                if (cpn.codigo.equals(codigoIngresado)) {
+                    if (cpn.fecha.after(new Date())) {
+                        valorCupon = cpn.valor_total; // Capturar el valor del cupón
+                        cupónAplicado = cpn; // Guardar el cupón encontrado
+                        break; // Salir del bucle una vez encontrado el cupón
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El cupón está vencido.");
+                        return;
+                    }
+                }
+            }
+        }
 
-    JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
-    ProyectoB.ventas.add(c); // Agregar la venta a la lista
-    
-     // Limpiar la lista de librosVenta y la tabla
-    librosVenta.clear(); // Limpia la lista de libros vendidos
-    pintarTabla(); // Vuelve a pintar la tabla para que esté vacía
+        // Registrar el valor del cupón en el objeto de venta
+        if (valorCupon != null) {
+            c.valor_descuento = valorCupon; // Asignar el valor del cupón al objeto de venta
+        }
+
+        // Agregar los libros vendidos a la lista
+        for (libros libro : librosVenta) {
+            libros2 libroVenta = new libros2();
+            libroVenta.titulo_venta = libro.titulo; // Asegúrate de que esto se esté utilizando correctamente
+            libroVenta.cantidad_venta = libro.cantidad;
+            libroVenta.precio_venta = libro.precio;
+            libroVenta.fecha = c.fecha; // lo jale de arribita
+
+            ProyectoB.libros2.add(libroVenta); // Añadir a la lista de libros vendidos
+        }
+
+        // Agregar la venta general a la lista
+        ProyectoB.ventas.add(c);
+
+        // Eliminar el cupón solo aquí, si se ha utilizado
+        if (cupónAplicado != null) {
+            ProyectoB.Cupones.remove(cupónAplicado); // Elimina el cupón después de usarlo
+        }
+
+        JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
+
+        // Limpiar la lista de librosVenta y la tabla
+        librosVenta.clear(); // Limpia la lista de libros vendidos
+        pintarTabla(); // Vuelve a pintar la tabla para que esté vacía
+
     }//GEN-LAST:event_jButton_registrarventaActionPerformed
 
     private void jTextField_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_fechaActionPerformed

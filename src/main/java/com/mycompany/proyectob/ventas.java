@@ -13,4 +13,5 @@ public class ventas {
     public double cliente_total;
     public double cliente_sIva;
     public String fecha;
+    public String valor_descuento; 
 }
