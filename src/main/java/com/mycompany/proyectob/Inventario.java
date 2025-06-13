@@ -1,8 +1,15 @@
 package com.mycompany.proyectob;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -65,6 +72,9 @@ public class Inventario extends javax.swing.JFrame {
         jTextField_titulo = new javax.swing.JTextField();
         jTextField_autor = new javax.swing.JTextField();
         jTextField_precio = new javax.swing.JTextField();
+        jButton_exportar = new javax.swing.JButton();
+        jButton_importar = new javax.swing.JButton();
+        jButton_limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,11 +106,10 @@ public class Inventario extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_regresar))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_regresar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
@@ -160,6 +169,33 @@ public class Inventario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
         jLabel6.setText("Cantidad:");
 
+        jButton_exportar.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_exportar.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_exportar.setText("Exportar");
+        jButton_exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_exportarActionPerformed(evt);
+            }
+        });
+
+        jButton_importar.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_importar.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_importar.setText("Importar");
+        jButton_importar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_importarActionPerformed(evt);
+            }
+        });
+
+        jButton_limpiar.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_limpiar.setFont(new java.awt.Font("URW Gothic", 0, 13)); // NOI18N
+        jButton_limpiar.setText("Limpiar archivo");
+        jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_limpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -184,7 +220,12 @@ public class Inventario extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton_modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_exportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_importar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
@@ -193,7 +234,7 @@ public class Inventario extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField_genero, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
             .addComponent(jScrollPane1)
         );
         jPanel3Layout.setVerticalGroup(
@@ -204,17 +245,20 @@ public class Inventario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_modificar))
+                    .addComponent(jButton_modificar)
+                    .addComponent(jButton_exportar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField_autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_guardar))
+                    .addComponent(jButton_guardar)
+                    .addComponent(jButton_importar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_borrar))
+                    .addComponent(jButton_borrar)
+                    .addComponent(jButton_limpiar))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -232,8 +276,7 @@ public class Inventario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -313,10 +356,83 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
+    private void jButton_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exportarActionPerformed
+        JSONArray librosArray = new JSONArray();
+
+        for (libros libro : ProyectoB.libros) {
+            JSONObject libroObject = new JSONObject();
+            libroObject.put("titulo", libro.titulo);
+            libroObject.put("autor", libro.autor);
+            libroObject.put("precio", libro.precio);
+            libroObject.put("cantidad", libro.cantidad);
+            libroObject.put("genero", libro.genero);
+
+            librosArray.add(libroObject);
+        }
+
+        try (FileWriter file = new FileWriter("inventariolibros.json")) {
+            file.write(librosArray.toJSONString());
+            file.flush();
+            JOptionPane.showMessageDialog(this, "Inventario exportado a inventariolibros.json");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton_exportarActionPerformed
+
+    private void jButton_importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_importarActionPerformed
+        // Crear un objeto JSONParser
+        JSONParser parser = new JSONParser();
+
+        try {
+            // Leer el archivo JSON
+            Object obj = parser.parse(new FileReader("inventariolibros.json"));
+            JSONArray librosArray = (JSONArray) obj;
+
+            // Limpiar la lista de libros existente
+            ProyectoB.libros.clear();
+
+            // Iterar sobre el array y agregar libros a la lista
+            for (Object libroObj : librosArray) {
+                JSONObject libroJSON = (JSONObject) libroObj;
+
+                // Crear un nuevo libro y establecer sus propiedades
+                libros libro = new libros();
+                libro.titulo = (String) libroJSON.get("titulo");
+                libro.autor = (String) libroJSON.get("autor");
+                libro.precio = Double.parseDouble(libroJSON.get("precio").toString());
+                libro.cantidad = Integer.parseInt(libroJSON.get("cantidad").toString());
+                libro.genero = (String) libroJSON.get("genero");
+
+                // Agregar el libro a la lista
+                ProyectoB.libros.add(libro);
+            }
+
+            // Pintar la tabla con los nuevos datos
+            pintarTabla();
+            JOptionPane.showMessageDialog(this, "Inventario importado correctamente.");
+        } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(this, "Error al importar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton_importarActionPerformed
+
+    private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
+        try (FileWriter file = new FileWriter("inventariolibros.json", false)) {
+            // Simplemente no escribimos nada para limpiar el archivo
+            file.write(""); // Sobrescribir el archivo con un contenido vacío
+            file.flush();
+            JOptionPane.showMessageDialog(this, "Archivo limpiado correctamente.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al limpiar el archivo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton_limpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_borrar;
+    private javax.swing.JButton jButton_exportar;
     private javax.swing.JButton jButton_guardar;
+    private javax.swing.JButton jButton_importar;
+    private javax.swing.JButton jButton_limpiar;
     private javax.swing.JButton jButton_modificar;
     private javax.swing.JButton jButton_regresar;
     private javax.swing.JLabel jLabel1;
