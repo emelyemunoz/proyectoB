@@ -1,4 +1,3 @@
-
 package com.mycompany.proyectob;
 
 import javax.swing.JOptionPane;
@@ -8,8 +7,6 @@ import javax.swing.JOptionPane;
  * @author emely
  */
 public class login extends javax.swing.JFrame {
-    
-    
 
     /**
      * Creates new form login
@@ -42,6 +39,8 @@ public class login extends javax.swing.JFrame {
         jButton_crear_cuenta = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton_guardarProgreso = new javax.swing.JButton();
+        jButton_SubirProgreso = new javax.swing.JButton();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -99,6 +98,28 @@ public class login extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("URW Gothic", 0, 24)); // NOI18N
         jLabel6.setText("-----------¿No tienes cuenta?------------");
 
+        jButton_guardarProgreso.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_guardarProgreso.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
+        jButton_guardarProgreso.setText("Guardar progreso");
+        jButton_guardarProgreso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton_guardarProgreso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_guardarProgreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_guardarProgresoActionPerformed(evt);
+            }
+        });
+
+        jButton_SubirProgreso.setBackground(new java.awt.Color(255, 153, 153));
+        jButton_SubirProgreso.setFont(new java.awt.Font("URW Gothic", 1, 13)); // NOI18N
+        jButton_SubirProgreso.setText("Subir progreso");
+        jButton_SubirProgreso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton_SubirProgreso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_SubirProgreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SubirProgresoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,6 +150,12 @@ public class login extends javax.swing.JFrame {
                 .addGap(141, 141, 141)
                 .addComponent(jLabel5)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_SubirProgreso)
+                    .addComponent(jButton_guardarProgreso))
+                .addGap(17, 17, 17))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -138,7 +165,11 @@ public class login extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addContainerGap()
+                .addComponent(jButton_guardarProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_SubirProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -202,57 +233,94 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_crear_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_crear_cuentaActionPerformed
-        // Aqui unimos esta ventana con la de nuevo_usuario:
         nuevo_usuario v = new nuevo_usuario();
         v.setVisible(true);
     }//GEN-LAST:event_jButton_crear_cuentaActionPerformed
 
     private void jButton_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ingresarActionPerformed
         // Creamos el metodo para ingresar verificando la contraseña y usuario
-        
+
         //se obtiene el texto ingresado en el texfield
         String Usuario = jTextField_usuario.getText();
         String password = jTextField_password.getText();
-        
+
         //variable inicializada con un false usada para determinar si las credenciales coinciden con las ingresadas
         boolean existe = false;
-        
+
         // creamos un blucle for each, llamamos ala clase usuario creamos la variable u llamamos a la ventana ProyectoB y la lista usuarios
         // los : es para indicar que cada elemento en. El elemento que sigue
-        for(usuario u : ProyectoB.usuarios){
-        // if toda la sentencia dentro debe de ser verdadera osea true
-        // u es un objeto de la clase usuario que se obtiene del bucle foreach
-        //equals metodo para comparar dos cadenas (Usuario contiene lo que fue ingresado desde la interfaz) lo mismo para (password)
-        // && para combinar las dos condiciones
-        // el u.usuario.equals(Usuario)
-        // usuario y password son atributos del objeto u
-            if(u.usuario.equals(Usuario) && u.password.equals(password)){
+        for (usuario u : ProyectoB.usuarios) {
+            // if toda la sentencia dentro debe de ser verdadera osea true
+            // u es un objeto de la clase usuario que se obtiene del bucle foreach
+            //equals metodo para comparar dos cadenas (Usuario contiene lo que fue ingresado desde la interfaz) lo mismo para (password)
+            // && para combinar las dos condiciones
+            // el u.usuario.equals(Usuario)
+            // usuario y password son atributos del objeto u
+            if (u.usuario.equals(Usuario) && u.password.equals(password)) {
                 // indicacion que el usuario fue encontrado
                 existe = true;
-                //se define el rol que indica si es 1 es administrador a este caso
-                //rol es atributo del objeto u
-                if(u.rol == 1){
+                if (u.rol == 1) {
                     ventana_administrador v = new ventana_administrador();
                     v.setVisible(true);
-                    //this.dispose();
-                }
-                else{
+                } else {
                     ventana_vendedor v = new ventana_vendedor(u);
                     v.setVisible(true);
-                    //this.dispose();
                 }
             }
         }
-        if(existe == false){
+        if (existe == false) {
             JOptionPane.showMessageDialog(this, "Usuario o password incorrecto");
         }
-        
+
     }//GEN-LAST:event_jButton_ingresarActionPerformed
 
-    
+    private void jButton_guardarProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarProgresoActionPerformed
+    try {
+        // Crear un objeto Datos con todas las listas
+        Datos datos = new Datos(ProyectoB.usuarios, ProyectoB.libros, ProyectoB.Cupones,
+                                 ProyectoB.clientes, ProyectoB.libros2, ProyectoB.ventas);
+        
+        // Guardar todos los datos en un solo archivo
+        Persistencia.guardarDatos("todosLosDatos.bin", datos);
+        
+        // Mensaje de confirmación
+        JOptionPane.showMessageDialog(null, "Progreso guardado correctamente en un solo archivo.");
+    } catch (Exception e) {
+        // Manejo de errores
+        JOptionPane.showMessageDialog(null, "Error al guardar el progreso: " + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton_guardarProgresoActionPerformed
+
+    private void jButton_SubirProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SubirProgresoActionPerformed
+ try {
+        // Cargar los datos desde el archivo
+        Datos datosCargados = (Datos) Persistencia.cargarDatos("todosLosDatos.bin");
+        
+        if (datosCargados != null) {
+            // Aquí puedes procesar los datos cargados
+            ProyectoB.usuarios = datosCargados.usuarios;
+            ProyectoB.libros = datosCargados.libros;
+            ProyectoB.Cupones = datosCargados.cupones;
+            ProyectoB.clientes = datosCargados.clientes;
+            ProyectoB.libros2 = datosCargados.libros2;
+            ProyectoB.ventas = datosCargados.ventas;
+
+            // Mensaje de confirmación
+            JOptionPane.showMessageDialog(null, "Progreso subido correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudieron cargar los datos.");
+        }
+    } catch (Exception e) {
+        // Manejo de errores
+        JOptionPane.showMessageDialog(null, "Error al subir el progreso: " + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton_SubirProgresoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_SubirProgreso;
     private javax.swing.JButton jButton_crear_cuenta;
+    private javax.swing.JButton jButton_guardarProgreso;
     private javax.swing.JButton jButton_ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

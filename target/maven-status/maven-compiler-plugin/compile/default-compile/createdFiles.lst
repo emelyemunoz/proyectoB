@@ -1,16 +1,19 @@
 com/mycompany/proyectob/Inventario$2.class
+com/mycompany/proyectob/Datos.class
 com/mycompany/proyectob/librosvendidos$1.class
 com/mycompany/proyectob/Creacion_cupones$4.class
 com/mycompany/proyectob/inventario_cupones$3.class
 com/mycompany/proyectob/Ventas$7.class
 com/mycompany/proyectob/Menu_vendedores$1.class
 com/mycompany/proyectob/ventana_administrador$7.class
+com/mycompany/proyectob/Persistencia.class
 com/mycompany/proyectob/nuevo_usuario$4.class
 com/mycompany/proyectob/Ventas$3.class
 com/mycompany/proyectob/Nuevos_libros$2.class
 com/mycompany/proyectob/Consulta_usuarios$6.class
 com/mycompany/proyectob/Perfilvendedor$3.class
 com/mycompany/proyectob/Perfilvendedor.class
+com/mycompany/proyectob/login$4.class
 com/mycompany/proyectob/Menu_vendedores$2.class
 com/mycompany/proyectob/Creacion_cupones$3.class
 com/mycompany/proyectob/Consulta_usuarios$5.class
@@ -30,6 +33,7 @@ com/mycompany/proyectob/Menu_vendedores$5.class
 com/mycompany/proyectob/Creacion_cupones.class
 com/mycompany/proyectob/Nuevos_libros$3.class
 com/mycompany/proyectob/Consulta_usuarios$2.class
+com/mycompany/proyectob/login$3.class
 com/mycompany/proyectob/Ventas$2.class
 com/mycompany/proyectob/ventana_administrador$6.class
 com/mycompany/proyectob/Consultar_ventas$4.class

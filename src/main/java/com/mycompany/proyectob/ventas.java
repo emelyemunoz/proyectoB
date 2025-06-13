@@ -1,10 +1,13 @@
 package com.mycompany.proyectob;
 
+import java.io.Serializable;
+
 /**
  *
  * @author emely
  */
-public class ventas {
+public class ventas implements Serializable {
+    private static final long serialVersionUID = 1L; 
 
     public String vendedor;
     public String cliente_nombre;

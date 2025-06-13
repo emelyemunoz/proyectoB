@@ -1,15 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyectob;
+
+import java.io.Serializable;
 
 /**
  *
  * @author emely
  */
-public class Clientes {
-   
+public class Clientes implements Serializable {
+    private static final long serialVersionUID = 1L;    
     public String nombre_cliente;
     public String nit;
     public String direccion;
